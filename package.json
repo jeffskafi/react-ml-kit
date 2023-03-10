@@ -2,13 +2,13 @@
   "name": "react-ml-kit",
   "version": "1.0.6",
   "description": "",
-  "types": "./lib/cjs/types/index.d.ts",
-  "main": "./lib/cjs/index.js",
+  "types": "./dist/cjs/types/index.d.ts",
+  "main": "./dist/cjs/index.js",
   "scripts": {
     "test": "react-scripts test",
-    "clean": "rm -rf ./lib",
+    "clean": "rm -rf ./dist",
     "build": "npm run clean && npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
+    "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv dist/esm/index.js dist/esm/index.mjs",
     "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
     "prepack": "npm run build"
   },
@@ -61,16 +61,16 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./lib/esm/types/index.d.ts",
-        "default": "./lib/esm/index.mjs"
+        "types": "./dist/esm/types/index.d.ts",
+        "default": "./dist/esm/index.mjs"
       },
       "require": {
-        "types": "./lib/cjs/types/index.d.ts",
-        "default": "./lib/cjs/index.js"
+        "types": "./dist/cjs/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
       }
     }
   },
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ]
 }
