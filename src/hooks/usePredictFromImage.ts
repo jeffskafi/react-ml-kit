@@ -32,7 +32,7 @@ interface Image {
 }
 
 interface PredictFromImageProps {
-  onPredictions: (predictions: PredictionData | undefined) => void;
+  onPredictions: (predictions: PredictionData | null) => void;
   images: Image[];
   model: "mobilenet" | "coco-ssd";
 }
@@ -42,18 +42,39 @@ interface UsePredictFromImageReturn {
   data: PredictionData | null;
 }
 
-const models = {
+const models: {
+  [key: string]: {
+    load: () => Promise<any>;
+    classify: (
+      model: any,
+      img: HTMLImageElement
+    ) => Promise<MobileNetPrediction[] | CocoSsdPrediction[]>;
+  };
+} = {
   mobilenet: {
     load: () => mobilenet.load(),
-    classify: (model, img) => model.classify(img),
+    // classify: (model, img) => model.classify(img),
+    classify: (
+      model: mobilenet.MobileNet,
+      img: HTMLImageElement
+    ): Promise<MobileNetPrediction[]> => {
+      return model.classify(img);
+    },
   },
   "coco-ssd": {
     load: () => cocoSsd.load(),
-    classify: (model, img) => model.detect(img),
+    // classify: (model, img) => model.detect(img),
+    classify: (
+      model: cocoSsd.ObjectDetection,
+      img: HTMLImageElement
+    ): Promise<CocoSsdPrediction[]> => {
+      return model.detect(img);
+    },
   },
 };
 
 const loadModel = async (modelName: string): Promise<any> => {
+  // const model = models[modelName];
   const model = models[modelName];
   if (!model) {
     console.warn(`Unknown model name: ${modelName}, using default (mobilenet)`);
@@ -64,10 +85,10 @@ const loadModel = async (modelName: string): Promise<any> => {
 
 const runModel = async (
   modelName: string,
-  model,
-  img
+  model: any,
+  img: HTMLImageElement
 ): Promise<Prediction[]> => {
-  let modelFuncs = models[modelName];
+  let modelFuncs: any = models[modelName];
   if (!modelFuncs) {
     console.warn(`Unknown model name: ${modelName}, using default (mobilenet)`);
     modelFuncs = models["mobilenet"];
@@ -91,8 +112,8 @@ export const usePredictFromImage = ({
         const model = await loadModel(modelName);
 
         const predictions: PredictionData = await Promise.allSettled(
-          images.map(async (image: Image): Promise<Prediction[]> => {
-            const img = document.createElement("img");
+          images.map(async (image: Image): Promise<Prediction[] | null> => {
+            const img: HTMLImageElement = document.createElement("img");
             img.src = image.url;
             try {
               const prediction: Prediction[] = await runModel(

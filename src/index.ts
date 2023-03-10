@@ -1,7 +1,3 @@
-console.log("Hello world!");
+import { usePredictFromImage } from "./hooks/usePredictFromImage";
 
-function helloNpm() {
-  return "hello NPM";
-}
-
-export default helloNpm;
+export { usePredictFromImage };

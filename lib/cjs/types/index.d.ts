@@ -1,3 +1,3 @@
-declare function helloNpm(): string;
-export default helloNpm;
+import { usePredictFromImage } from "./hooks/usePredictFromImage";
+export { usePredictFromImage };
 //# sourceMappingURL=index.d.ts.map
