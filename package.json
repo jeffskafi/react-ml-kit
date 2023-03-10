@@ -1,6 +1,6 @@
 {
   "name": "react-ml-kit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "types": "./lib/cjs/types/index.d.ts",
   "main": "./lib/cjs/index.js",
