@@ -96,13 +96,14 @@ const runModel = async (
   return await modelFuncs.classify(model, img);
 };
 
-export const usePredictFromImage = ({
+export const useImageClassifier = ({
   onPredictions,
   images,
   model: modelName,
 }: PredictFromImageProps): UsePredictFromImageReturn => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<PredictionData | null>(null);
+  console.log("data: ", data);
 
   useEffect(() => {
     const predict = async (): Promise<void> => {
