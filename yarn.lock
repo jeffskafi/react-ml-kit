@@ -1745,6 +1745,11 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@mediapipe/face_detection@^0.4.1646425229":
+  version "0.4.1646425229"
+  resolved "https://registry.yarnpkg.com/@mediapipe/face_detection/-/face_detection-0.4.1646425229.tgz#76cd4b4938d5a641dfdad2951ff9f37dcf18e636"
+  integrity sha512-aeCN+fRAojv9ch3NXorP6r5tcGVLR3/gC1HmtqB0WEZBRXrdP6/3W/sGR0dHr1iT6ueiK95G9PVjbzFosf/hrg==
+
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/chokidar-2/-/chokidar-2-2.1.8-no-fsevents.3.tgz#323d72dd25103d0c4fbdce89dadf574a787b1f9b"
@@ -1991,6 +1996,13 @@
   resolved "https://registry.yarnpkg.com/@tensorflow-models/coco-ssd/-/coco-ssd-2.2.2.tgz#2a308b3b11a106bf640c5245b980c79df8208b60"
   integrity sha512-Jey2JscmKEValcFZH2ZLz14s8KPRmVtfJ0d0M3dPhvBp9dJiGNanVXr/pJAY5OS7emKj9uSciGhdkHWXY9Hovw==
 
+"@tensorflow-models/face-detection@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@tensorflow-models/face-detection/-/face-detection-1.0.1.tgz#f0b68f5c8ebf38d588ae2c9c6eb7517e7faad2b5"
+  integrity sha512-oIEEqHy4qbkGn5xT1ldzwxK5s948+t7ts0+WoIfTPKwScpNa8YY4GJf+fpyhtOxUGGAZymXx25jrvF9YlAt9dg==
+  dependencies:
+    rimraf "^3.0.2"
+
 "@tensorflow-models/mobilenet@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@tensorflow-models/mobilenet/-/mobilenet-2.1.0.tgz#58583f0793a7091eda370aa441d09d94b808aeb1"
@@ -2004,7 +2016,7 @@
     "@types/seedrandom" "^2.4.28"
     seedrandom "^3.0.5"
 
-"@tensorflow/tfjs-backend-webgl@4.2.0":
+"@tensorflow/tfjs-backend-webgl@4.2.0", "@tensorflow/tfjs-backend-webgl@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-webgl/-/tfjs-backend-webgl-4.2.0.tgz#684368f9a2605511d6d6753bf6fe9a08c73f6791"
   integrity sha512-Qvf+hD5pSh+xi48kChSGzcDKJemkc4EKfoVVjuxl4k25ZUPwuEd7zZUAtinkLu1dzgHNyvePZY8k+9rVm59HJA==
