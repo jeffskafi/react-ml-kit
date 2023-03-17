@@ -96,7 +96,7 @@ const runModel = async (
   return await modelFuncs.classify(model, img);
 };
 
-export const usePredictFromImage = ({
+export const useImageClassifier = ({
   onPredictions,
   images,
   model: modelName,

@@ -1,4 +1,4 @@
-import { usePredictFromImage } from "./hooks/usePredictFromImage";
+import { useImageClassifier } from "./hooks/useImageClassifier";
 import { useFaceDetection } from "./hooks/useFaceDetection";
 
-export { usePredictFromImage, useFaceDetection };
+export { useImageClassifier, useFaceDetection };

@@ -1,8 +1,8 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { usePredictFromImage } from "../hooks/usePredictFromImage";
+import { useImageClassifier } from "../hooks/useImageClassifier";
 import * as mobilenet from "@tensorflow-models/mobilenet";
 
-describe("usePredictFromImage", () => {
+describe("useImageClassifier", () => {
   it("should load and classify the images", async () => {
     const images = [{ url: "mock-url" }];
 
@@ -19,7 +19,7 @@ describe("usePredictFromImage", () => {
     window.Image = jest.fn(() => ({ remove: jest.fn() }));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      usePredictFromImage({ onPredictions, images })
+      useImageClassifier({ onPredictions, images })
     );
 
     expect(result.current.loading).toBe(true);
@@ -50,7 +50,7 @@ describe("usePredictFromImage", () => {
     window.Image = jest.fn(() => ({ remove: jest.fn() }));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      usePredictFromImage({ onPredictions, images })
+      useImageClassifier({ onPredictions, images })
     );
 
     expect(result.current.loading).toBe(true);
