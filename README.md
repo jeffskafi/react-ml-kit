@@ -1,57 +1,47 @@
-# react-ml-kit
+# React AI Hooks
 
-A lightweight React library for using machine learning models in the browser.
-
-## Purpose
-
-The purpose of this library is to provide developers with an easy-to-use way of integrating machine learning models into their React applications without relying on third-party API services.
+React AI Hooks is a collection of React hooks that allow you to easily integrate AI functionalities using machine learning models directly in the browser. These hooks are designed to be user-friendly and efficient, providing developers with an easy way to add AI capabilities to their applications without extensive knowledge in machine learning.
 
 ## Installation
 
-To install the `react-ml-kit` package, run the following command:
-
 bashCopy code
 
-`npm install react-ml-kit`
+`npm install react-ai-hooks`
 
-## Usage
+## Hooks
 
-To use `react-ml-kit` in your React app, first import the custom React hook:
+### useImageClassifier
 
-javascriptCopy code
-
-`import { useImageClassifier } from 'react-ml-kit';`
-
-Next, use the `useImageClassifier` hook in your component:
+This hook is used for classifying images using pre-trained models. It currently supports TensorFlow.js models MobileNet and COCO-SSD.
 
 javascriptCopy code
 
-`const { loading, data } = useImageClassifier(onPredictions, images, model);`
+`import  { useImageClassifier }  from  "react-ai-hooks";`
 
-The `useImageClassifier` hook takes three parameters:
+#### Usage
 
-- `onPredictions`: A callback function that takes an array of predictions as an argument.
-- `images`: An array of image URLs to predict on.
-- `model`: A string specifying the machine learning model to use, either "mobilenet" or "coco-ssd".
+javascriptCopy code
 
-The `useImageClassifier` hook returns an object with two properties:
+`const  { loading, data } =  useImageClassifier({ onPredictions, images,  model:  "mobilenet"|  "coco-ssd", });`
 
-- `loading`: A boolean indicating whether the predictions are being calculated.
-- `data`: An array of prediction data in the format `Array<Array<Prediction>>`. Each inner array corresponds to one image, and each prediction object contains the predicted class, probability or score, and optionally, the bounding box coordinates.
+### useFaceDetection
 
-## Pros and Cons (Use Cases)
+This hook is used for detecting faces in a video stream. It utilizes the MediaPipe Face Detection model from TensorFlow.js.
 
-### Pros
+javascriptCopy code
 
-- Easy to use and integrates with React applications.
-- No reliance on third-party API services.
-- Supports two popular machine learning models.
+`import  { useFaceDetection }  from  "react-ai-hooks";`
 
-### Cons
+#### Usage
 
-- Limited to predicting on images only.
-- Limited to two machine learning models only.
+javascriptCopy code
 
-## Motivation
+`const  faces =  useFaceDetection(videoRef, options);`
 
-The motivation behind `react-ml-kit` is to provide developers with a lightweight, easy-to-use solution for integrating machine learning models into their React applications without relying on third-party API services
+## Use Cases
+
+1.  Object recognition in images: Easily identify objects within images and provide relevant information or actions based on the detected objects.
+2.  Face detection and tracking in video streams: Implement real-time face tracking for video chat applications, AR filters, or facial expression analysis.
+3.  Image classification for content moderation: Automatically filter out inappropriate images in user-generated content.
+4.  Accessibility: Describe images for visually impaired users by identifying objects and their positions within the images.
+5.  AI-based search: Enhance search functionality within an application by allowing users to search for specific objects or features within images.

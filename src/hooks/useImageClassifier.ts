@@ -103,7 +103,6 @@ export const useImageClassifier = ({
 }: PredictFromImageProps): UsePredictFromImageReturn => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<PredictionData | null>(null);
-  console.log("data: ", data);
 
   useEffect(() => {
     const predict = async (): Promise<void> => {
