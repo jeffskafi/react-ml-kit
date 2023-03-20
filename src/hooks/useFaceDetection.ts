@@ -36,11 +36,16 @@ export const useFaceDetection = (
     let animationId: number;
     const detectFaces = async () => {
       if (videoRef.current && detector && videoRef.current.readyState === 4) {
-        const detectedFaces = await detector.estimateFaces(
-          videoRef.current,
-          options
-        );
-        setFaces(detectedFaces as Face[]);
+        try {
+          const detectedFaces = await detector.estimateFaces(
+            videoRef.current,
+            options
+          );
+          setFaces(detectedFaces as Face[]);
+        } catch (error) {
+          console.error("Error detecting faces:", error);
+          setFaces([]);
+        }
       }
       animationId = requestAnimationFrame(detectFaces);
     };
