@@ -1,12 +1,12 @@
-# React AI Hooks
+# React ML Kit
 
-React AI Hooks is a collection of React hooks that allow you to easily integrate AI functionalities using machine learning models directly in the browser. These hooks are designed to be user-friendly and efficient, providing developers with an easy way to add AI capabilities to their applications without extensive knowledge in machine learning.
+React ML Kit is a collection of React hooks that allow you to easily integrate AI functionalities using machine learning models directly in the browser. These hooks are designed to be user-friendly and efficient, providing developers with an easy way to add AI capabilities to their applications without extensive knowledge in machine learning.
 
 ## Installation
 
 bashCopy code
 
-`npm install react-ai-hooks`
+`npm install react-ml-kit`
 
 ## Hooks
 
@@ -16,7 +16,7 @@ This hook is used for classifying images using pre-trained models. It currently 
 
 javascriptCopy code
 
-`import  { useImageClassifier }  from  "react-ai-hooks";`
+`import  { useImageClassifier }  from  "react-ml-kit";`
 
 #### Usage
 
@@ -30,7 +30,7 @@ This hook is used for detecting faces in a video stream. It utilizes the MediaPi
 
 javascriptCopy code
 
-`import  { useFaceDetection }  from  "react-ai-hooks";`
+`import  { useFaceDetection }  from  "react-ml-kit";`
 
 #### Usage
 
