@@ -4,39 +4,43 @@ React ML Kit is a collection of React hooks that allow you to easily integrate A
 
 ## Installation
 
-bashCopy code
-
-`npm install react-ml-kit`
+`bash npm install react-ml-kit`
 
 ## Hooks
 
 ### useImageClassifier
 
-This hook is used for classifying images using pre-trained models. It currently supports TensorFlow.js models MobileNet and COCO-SSD.
-
-javascriptCopy code
-
-`import  { useImageClassifier }  from  "react-ml-kit";`
+This hook is used for classifying images using pre-trained models. It currently supports TensorFlow.js models `MobileNet` and `COCO-SSD`.
 
 #### Usage
 
-javascriptCopy code
+```
+import  { useImageClassifier }  from  "react-ml-kit";
+const  { loading, data } =  useImageClassifier({ onPredictions, images,  model:  "mobilenet"|  "coco-ssd", });
+```
 
-`const  { loading, data } =  useImageClassifier({ onPredictions, images,  model:  "mobilenet"|  "coco-ssd", });`
+`onPredictions` is a callback function that receives the prediction data when it becomes available. `images` is an array of image objects with a `url` property. `model` is a string indicating which model to use: `"mobilenet"` or `"coco-ssd"`.
+
+The hook returns an object with two properties: `loading` (a boolean indicating whether the model is currently processing the image) and `data` (an array containing the prediction results).
+
+Prediction results include the class name, probability (for MobileNet), and bounding box coordinates, class, and score (for COCO-SSD).
 
 ### useFaceDetection
 
 This hook is used for detecting faces in a video stream. It utilizes the MediaPipe Face Detection model from TensorFlow.js.
 
-javascriptCopy code
-
-`import  { useFaceDetection }  from  "react-ml-kit";`
-
 #### Usage
 
-javascriptCopy code
+```
+import  { useFaceDetection }  from  "react-ml-kit";
+const  faces =  useFaceDetection(videoRef, options);
+```
 
-`const  faces =  useFaceDetection(videoRef, options);`
+`videoRef` is a React ref pointing to an HTMLVideoElement, and `options` is an optional object to customize the face detection behavior.
+
+The hook returns an array of `Face` objects, where each face contains information about its position and landmarks.
+
+A `Face` object includes properties such as `boundingBox`, `landmarks`, and `scaledMesh`. The `boundingBox` property contains the coordinates of the rectangular area surrounding the face. The `landmarks` property is an array of facial landmarks, such as the eyes, nose, and mouth. The `scaledMesh` property is an array of 3D facial landmarks, which can be used to create a 3D mesh of the face.
 
 ## Use Cases
 
