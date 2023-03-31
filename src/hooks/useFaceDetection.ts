@@ -34,6 +34,8 @@ export const useFaceDetection = (
 
   useEffect(() => {
     let animationId: number;
+    let isCancelled = false;
+
     const detectFaces = async () => {
       if (videoRef.current && detector && videoRef.current.readyState === 4) {
         try {
@@ -44,7 +46,9 @@ export const useFaceDetection = (
           setFaces(detectedFaces as Face[]);
         } catch (error) {
           console.error("Error detecting faces:", error);
-          setFaces([]);
+          if (!isCancelled) {
+            setFaces([]);
+          }
         }
       }
       animationId = requestAnimationFrame(detectFaces);
@@ -57,6 +61,7 @@ export const useFaceDetection = (
     startDetection();
 
     return () => {
+      isCancelled = true; // Set the flag to true when the component unmounts
       if (animationId) {
         cancelAnimationFrame(animationId);
       }

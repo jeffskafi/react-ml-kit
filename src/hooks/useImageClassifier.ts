@@ -31,16 +31,33 @@ interface Image {
   url: string;
 }
 
+type CustomModel = {
+  name: string;
+  load: () => Promise<any>;
+  classify: (
+    model: any,
+    img: HTMLImageElement
+  ) => Promise<MobileNetPrediction[] | CocoSsdPrediction[]>;
+};
+
 interface PredictFromImageProps {
   onPredictions: (predictions: PredictionData | null) => void;
   images: Image[];
-  model: "mobilenet" | "coco-ssd";
+  model: "mobilenet" | "coco-ssd" | string; // Allow any string for custom models
+  customModel?: CustomModel; // Add optional customModel
 }
 
 interface UsePredictFromImageReturn {
   loading: boolean;
   data: PredictionData | null;
 }
+
+const registerCustomModel = (customModel: CustomModel) => {
+  models[customModel.name] = {
+    load: customModel.load,
+    classify: customModel.classify,
+  };
+};
 
 const models: {
   [key: string]: {
@@ -100,17 +117,23 @@ export const useImageClassifier = ({
   onPredictions,
   images,
   model: modelName,
+  customModel,
 }: PredictFromImageProps): UsePredictFromImageReturn => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<PredictionData | null>(null);
 
+  if (customModel) {
+    registerCustomModel(customModel);
+  }
+
   useEffect(() => {
+    let isMounted = true; // Add this flag to prevent memory leaks
     const predict = async (): Promise<void> => {
       try {
         setLoading(true);
-        // Load the model.
         const model = await loadModel(modelName);
 
+        // @ts-expect-error predictions is not assignable to type 'PredictionData'
         const predictions: PredictionData = await Promise.allSettled(
           images.map(async (image: Image): Promise<Prediction[] | null> => {
             const img: HTMLImageElement = document.createElement("img");
@@ -126,22 +149,21 @@ export const useImageClassifier = ({
               console.error("Error predicting from image", error);
               return null;
             } finally {
-              // delete img element
               img.remove();
             }
           })
         ).then((results) => {
-          return results
-            .filter(
-              (result): result is PromiseFulfilledResult<Prediction[]> =>
-                result.status === "fulfilled"
-            )
-            .map((result) => result.value);
+          return results.map((result, index) => {
+            if (result.status === "fulfilled") {
+              return result.value;
+            } else {
+              return null;
+            }
+          });
         });
 
         if (predictions.every((prediction) => prediction === null)) {
           setData(null);
-          // else if array is only nulls (i.e. no predictions)
         } else if (predictions.length) {
           setData(predictions);
         } else {
@@ -151,11 +173,17 @@ export const useImageClassifier = ({
       } catch (error) {
         console.error("Error predicting from image", error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     predict();
+
+    return () => {
+      isMounted = false; // Set flag to false to prevent memory leaks
+    };
   }, []);
 
   return { loading, data };
